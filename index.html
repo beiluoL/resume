@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>beiluoL - Resume / 简历</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8f9fa;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text-secondary: #4a5568;
+      --text-muted: #718096;
+      --accent: #4f46e5;
+      --accent-light: #eef2ff;
+      --accent-dark: #3730a3;
+      --border: #e2e8f0;
+      --green: #059669;
+      --tag-bg: #f1f5f9;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.08);
+      --radius: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === Toolbar === */
+    .toolbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 56px; padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px) saturate(1.8);
+      border-bottom: 1px solid var(--border);
+    }
+    .toolbar-brand {
+      font-weight: 700; font-size: 1rem; color: var(--accent);
+      letter-spacing: -0.3px;
+    }
+    .toolbar-actions { display: flex; gap: 8px; align-items: center; }
+
+    .tb-btn {
+      padding: 7px 18px; border-radius: 8px; font-size: 0.82rem;
+      font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+      background: var(--card); color: var(--text-secondary);
+      font-family: inherit; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .tb-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .tb-btn.primary {
+      background: var(--accent); color: white; border-color: var(--accent);
+    }
+    .tb-btn.primary:hover { background: var(--accent-dark); }
+
+    .lang-toggle {
+      display: flex; background: var(--tag-bg); border-radius: 8px; padding: 3px;
+    }
+    .lang-toggle button {
+      padding: 5px 14px; border-radius: 6px; font-size: 0.78rem;
+      border: none; cursor: pointer; font-family: inherit; font-weight: 600;
+      background: transparent; color: var(--text-muted); transition: all 0.2s;
+    }
+    .lang-toggle button.active {
+      background: var(--accent); color: white;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.3);
+    }
+
+    /* === Main Container === */
+    .resume {
+      max-width: 860px; margin: 80px auto 60px; padding: 0 24px;
+    }
+
+    .paper {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    /* === Header === */
+    .header {
+      padding: 48px 48px 40px;
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #2563eb 100%);
+      color: white; position: relative; overflow: hidden;
+    }
+    .header::after {
+      content: ''; position: absolute; top: -50%; right: -20%;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .header-grid {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      position: relative; z-index: 1;
+    }
+    .header h1 {
+      font-size: 2.4rem; font-weight: 800; letter-spacing: -1px;
+      margin-bottom: 6px;
+    }
+    .header .title-sub {
+      font-size: 1.15rem; font-weight: 400; opacity: 0.9; margin-bottom: 20px;
+    }
+    .header-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .header-tag {
+      padding: 4px 14px; border-radius: 100px; font-size: 0.78rem;
+      background: rgba(255,255,255,0.18); backdrop-filter: blur(8px);
+      font-weight: 500;
+    }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px;
+      text-align: right; font-size: 0.85rem;
+    }
+    .contact-item {
+      display: flex; align-items: center; gap: 8px; justify-content: flex-end;
+      opacity: 0.9;
+    }
+    .contact-item a { color: white; text-decoration: none; }
+    .contact-item a:hover { text-decoration: underline; }
+
+    /* === Content === */
+    .content { padding: 40px 48px 48px; }
+
+    .section { margin-bottom: 36px; }
+    .section:last-child { margin-bottom: 0; }
+
+    .sec-title {
+      font-size: 1.15rem; font-weight: 700; color: var(--accent);
+      margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+      letter-spacing: -0.3px;
+    }
+    .sec-title::after {
+      content: ''; flex: 1; height: 1.5px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+    .sec-title .icon { font-size: 1.2rem; }
+
+    /* Summary */
+    .summary {
+      color: var(--text-secondary); font-size: 0.95rem; line-height: 1.85;
+      padding: 20px 24px; border-radius: var(--radius);
+      background: var(--accent-light); border-left: 3px solid var(--accent);
+    }
+
+    /* Experience / Education */
+    .exp-item { margin-bottom: 24px; }
+    .exp-item:last-child { margin-bottom: 0; }
+
+    .exp-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 6px; flex-wrap: wrap; gap: 8px;
+    }
+    .exp-role {
+      font-size: 1.02rem; font-weight: 700; color: var(--text);
+    }
+    .exp-date {
+      font-size: 0.82rem; color: var(--text-muted); font-weight: 500;
+      white-space: nowrap;
+    }
+    .exp-company {
+      font-size: 0.9rem; color: var(--accent); font-weight: 600; margin-bottom: 10px;
+    }
+    .exp-list {
+      list-style: none; padding: 0;
+    }
+    .exp-list li {
+      position: relative; padding-left: 18px; margin-bottom: 6px;
+      font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;
+    }
+    .exp-list li::before {
+      content: ''; position: absolute; left: 0; top: 10px;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); opacity: 0.6;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .skill-cat {
+      padding: 18px 20px; border-radius: var(--radius);
+      background: var(--tag-bg); border: 1px solid var(--border);
+    }
+    .skill-cat h4 {
+      font-size: 0.85rem; font-weight: 700; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-tag {
+      padding: 3px 10px; border-radius: 6px; font-size: 0.76rem;
+      background: var(--card); color: var(--text-secondary);
+      border: 1px solid var(--border); font-weight: 500;
+    }
+
+    /* Projects */
+    .proj-item {
+      padding: 20px 24px; border-radius: var(--radius);
+      border: 1px solid var(--border); margin-bottom: 14px;
+      transition: all 0.2s;
+    }
+    .proj-item:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(79,70,229,0.08);
+    }
+    .proj-item:last-child { margin-bottom: 0; }
+    .proj-name {
+      font-size: 0.95rem; font-weight: 700; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .proj-name .badge {
+      font-size: 0.68rem; padding: 2px 8px; border-radius: 4px;
+      background: var(--accent-light); color: var(--accent); font-weight: 600;
+    }
+    .proj-desc {
+      font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 10px;
+      line-height: 1.7;
+    }
+    .proj-stack {
+      display: flex; flex-wrap: wrap; gap: 5px;
+    }
+    .proj-stack span {
+      font-size: 0.72rem; padding: 2px 8px; border-radius: 4px;
+      background: var(--tag-bg); color: var(--text-muted); font-weight: 500;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center; padding: 24px; font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* === Print Styles === */
+    @media print {
+      body { background: white; }
+      .toolbar { display: none !important; }
+      .resume { margin: 0; padding: 0; max-width: 100%; }
+      .paper { box-shadow: none; border-radius: 0; }
+      .header { padding: 32px 36px 28px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .header h1 { font-size: 2rem; }
+      .content { padding: 28px 36px 36px; }
+      .section { margin-bottom: 24px; page-break-inside: avoid; }
+      .proj-item:hover { border-color: var(--border); box-shadow: none; }
+      .exp-item { page-break-inside: avoid; }
+      .footer { display: none; }
+    }
+
+    /* === Responsive === */
+    @media (max-width: 640px) {
+      .header { padding: 32px 24px 28px; }
+      .header-grid { flex-direction: column; gap: 20px; }
+      .contact-grid { text-align: left; grid-template-columns: 1fr; }
+      .contact-item { justify-content: flex-start; }
+      .content { padding: 28px 24px 36px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .header h1 { font-size: 1.8rem; }
+      nav { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <span class="toolbar-brand" data-i18n="brand">beiluoL · 简历</span>
+  <div class="toolbar-actions">
+    <div class="lang-toggle">
+      <button class="active" onclick="setLang('zh')">中文</button>
+      <button onclick="setLang('en')">EN</button>
+    </div>
+    <button class="tb-btn" onclick="window.print()" data-i18n="print">🖨️ 打印 / 导出PDF</button>
+  </div>
+</div>
+
+<div class="resume">
+  <div class="paper">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="header-grid">
+        <div>
+          <h1 data-i18n="name">beiluoL</h1>
+          <div class="title-sub" data-i18n="title">全栈开发工程师 · Java + Frontend + AI</div>
+          <div class="header-tags">
+            <span class="header-tag" data-i18n="tag1">5+ 年开发经验</span>
+            <span class="header-tag" data-i18n="tag2">全栈能力</span>
+            <span class="header-tag" data-i18n="tag3">AI 应用实战</span>
+            <span class="header-tag" data-i18n="tag4">开源贡献者</span>
+          </div>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-item">📧 <a href="mailto:710980260@qq.com">710980260@qq.com</a></div>
+          <div class="contact-item">💻 <a href="https://github.com/beiluoL" target="_blank">github.com/beiluoL</a></div>
+          <div class="contact-item">📗 <a href="https://www.cnblogs.com/beiluoL" target="_blank" data-i18n="ct_cnblogs">博客园</a></div>
+          <div class="contact-item">📕 <a href="https://blog.csdn.net/beiluoL" target="_blank">CSDN</a></div>
+          <div class="contact-item">🔴 <a href="https://gitee.com/beiluol" target="_blank">Gitee</a></div>
+          <div class="contact-item">💬 <span data-i18n="ct_wechat">公众号 · 北落拾光</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- Summary -->
+      <div class="section">
+        <div class="sec-title"><span class="icon">📋</span> <span data-i18n="s_summary">个人简介</span></div>
+        <div class="summary" data-i18n="summary">
+          全栈开发工程师，拥有扎实的 Java 后端开发功底，熟悉 Spring Boot / Spring Cloud 微服务架构与分布式系统设计，同时深入掌握 React、TypeScript、Next.js 等现代前端技术栈。近期专注于 AI 全栈应用方向 — 大模型对话系统、RAG 知识库问答、AI Agent 工作流编排平台，致力于将 AI 能力落地到工程实践中。活跃于技术社区，在博客园、CSDN 持续输出技术文章，并运营个人学习公众号「北落拾光」。
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="section">
+        <div class="sec-title"><span class="icon">🛠️</span> <span data-i18n="s_skills">专业技能</span></div>
+        <div class="skills-grid">
+          <div class="skill-cat">
+            <h4>⚙️ <span data-i18n="sk_be">后端开发</span></h4>
+            <div class="skill-tags">
+              <span class="skill-tag">Java</span>
+              <span class="skill-tag">Spring Boot</span>
+              <span class="skill-tag">Spring Cloud</span>
+              <span class="skill-tag">MyBatis-Plus</span>
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">Redis</span>
+              <span class="skill-tag">RabbitMQ</span>
+              <span class="skill-tag">Spring AI</span>
+            </div>
+          </div>
+          <div class="skill-cat">
+            <h4>🎨 <span data-i18n="sk_fe">前端开发</span></h4>
+            <div class="skill-tags">
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">TypeScript</span>
+              <span class="skill-tag">Next.js</span>
+              <span class="skill-tag">Vue 3</span>
+              <span class="skill-tag">Tailwind CSS</span>
+              <span class="skill-tag">Redux / Zustand</span>
+              <span class="skill-tag">Vite</span>
+            </div>
+          </div>
+          <div class="skill-cat">
+            <h4>🤖 <span data-i18n="sk_ai">AI 应用</span></h4>
+            <div class="skill-tags">
+              <span class="skill-tag">OpenAI API</span>
+              <span class="skill-tag">SSE 流式输出</span>
+              <span class="skill-tag">RAG</span>
+              <span class="skill-tag">向量数据库</span>
+              <span class="skill-tag">AI Agent</span>
+              <span class="skill-tag">LangChain</span>
+            </div>
+          </div>
+          <div class="skill-cat">
+            <h4>🚀 <span data-i18n="sk_ops">DevOps & 工具</span></h4>
+            <div class="skill-tags">
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">Nginx</span>
+              <span class="skill-tag">Linux</span>
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">Jenkins</span>
+              <span class="skill-tag">Maven / Gradle</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div class="section">
+        <div class="sec-title"><span class="icon">💼</span> <span data-i18n="s_exp">工作经历</span></div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-role" data-i18n="exp1_role">全栈开发工程师</span>
+            <span class="exp-date" data-i18n="exp1_date">2022.06 — 至今</span>
+          </div>
+          <div class="exp-company" data-i18n="exp1_company">某某科技有限公司</div>
+          <ul class="exp-list">
+            <li data-i18n="exp1_1">主导公司核心业务系统后端架构设计，基于 Spring Cloud 微服务架构，支撑日均百万级请求处理</li>
+            <li data-i18n="exp1_2">独立搭建前端工程体系，采用 React + TypeScript + Next.js，实现管理后台与 C 端产品的前端开发</li>
+            <li data-i18n="exp1_3">引入 AI 能力，基于 Spring AI + OpenAI API 构建智能客服系统，SSE 流式输出，用户满意度提升 40%</li>
+            <li data-i18n="exp1_4">设计并实现 RAG 知识库问答系统，集成向量数据库（Milvus），支持企业内部知识精准检索</li>
+            <li data-i18n="exp1_5">推动团队代码规范建设，引入 ESLint + Prettier + Husky，代码质量评分提升 30%</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-role" data-i18n="exp2_role">Java 后端开发工程师</span>
+            <span class="exp-date" data-i18n="exp2_date">2020.07 — 2022.05</span>
+          </div>
+          <div class="exp-company" data-i18n="exp2_company">某某信息技术有限公司</div>
+          <ul class="exp-list">
+            <li data-i18n="exp2_1">负责电商平台后端开发，基于 Spring Boot + MyBatis-Plus，支撑商品管理、订单处理等核心模块</li>
+            <li data-i18n="exp2_2">优化数据库查询性能，通过索引优化 + Redis 缓存策略，核心接口响应时间从 800ms 降至 120ms</li>
+            <li data-i18n="exp2_3">设计并实现基于 RabbitMQ 的异步消息处理系统，解耦核心业务流程，系统吞吐量提升 3 倍</li>
+            <li data-i18n="exp2_4">参与系统从单体架构向微服务架构的迁移，完成 10+ 服务拆分与治理</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div class="section">
+        <div class="sec-title"><span class="icon">🚀</span> <span data-i18n="s_proj">项目经历</span></div>
+
+        <div class="proj-item">
+          <div class="proj-name">
+            <span data-i18n="p1_name">AI 智能对话平台</span>
+            <span class="badge" data-i18n="p1_badge">全栈</span>
+          </div>
+          <div class="proj-desc" data-i18n="p1_desc">
+            基于 Spring AI + React 的全栈对话系统，支持 SSE 流式输出（打字机效果）、多轮对话上下文管理、Token 用量计费统计、对话历史持久化。前后端分离架构，支持 Markdown 渲染与代码高亮。
+          </div>
+          <div class="proj-stack">
+            <span>React</span><span>TypeScript</span><span>Spring Boot</span><span>Spring AI</span><span>OpenAI API</span><span>PostgreSQL</span><span>SSE</span>
+          </div>
+        </div>
+
+        <div class="proj-item">
+          <div class="proj-name">
+            <span data-i18n="p2_name">RAG 知识库问答系统</span>
+            <span class="badge" data-i18n="p2_badge">AI</span>
+          </div>
+          <div class="proj-desc" data-i18n="p2_desc">
+            企业级私有知识库问答系统，基于 RAG（检索增强生成）架构。支持 PDF/Word/Markdown 文档解析、智能分块（Chunking）、Embedding 向量化存储、语义检索，结合大模型生成精准回答，有效解决 AI 幻觉问题。
+          </div>
+          <div class="proj-stack">
+            <span>React</span><span>Spring AI</span><span>Milvus</span><span>Embedding</span><span>PDF Parser</span><span>LangChain</span>
+          </div>
+        </div>
+
+        <div class="proj-item">
+          <div class="proj-name">
+            <span data-i18n="p3_name">AI Agent 工作流编排平台</span>
+            <span class="badge" data-i18n="p3_badge">Agent</span>
+          </div>
+          <div class="proj-desc" data-i18n="p3_desc">
+            类似 Dify/Coze 的可视化 AI Agent 平台，支持拖拽式工作流编排、多工具调用（Tool Calling）、DAG 拓扑排序执行引擎、条件分支与循环控制，降低 AI 应用搭建门槛。
+          </div>
+          <div class="proj-stack">
+            <span>React Flow</span><span>TypeScript</span><span>Spring Boot</span><span>DAG</span><span>Tool Calling</span>
+          </div>
+        </div>
+
+        <div class="proj-item">
+          <div class="proj-name">
+            <span data-i18n="p4_name">前端面试要点指南（开源）</span>
+            <span class="badge" data-i18n="p4_badge">开源</span>
+          </div>
+          <div class="proj-desc" data-i18n="p4_desc">
+            面向 Java 开发者的前端全栈进阶指南，18 个章节、3000+ 行，覆盖 HTML/CSS、JavaScript、React、Vue、TypeScript、Next.js、微前端、AI 项目实战等，GitHub 开源项目。
+          </div>
+          <div class="proj-stack">
+            <span>Markdown</span><span>React</span><span>TypeScript</span><span>Next.js</span><span>AI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="section">
+        <div class="sec-title"><span class="icon">🎓</span> <span data-i18n="s_edu">教育背景</span></div>
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-role" data-i18n="edu_major">计算机科学与技术 · 本科</span>
+            <span class="exp-date" data-i18n="edu_date">2016.09 — 2020.06</span>
+          </div>
+          <div class="exp-company" data-i18n="edu_school">某某大学</div>
+          <ul class="exp-list">
+            <li data-i18n="edu_1">主修课程：数据结构、算法设计、操作系统、计算机网络、数据库原理</li>
+            <li data-i18n="edu_2">在校期间参与多个项目开发，获得 ACM 程序设计竞赛省级奖项</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Self Evaluation -->
+      <div class="section">
+        <div class="sec-title"><span class="icon">✨</span> <span data-i18n="s_eval">自我评价</span></div>
+        <ul class="exp-list">
+          <li data-i18n="eval_1">具备全栈开发能力，能独立完成从需求分析、架构设计到前后端开发、部署上线的全流程</li>
+          <li data-i18n="eval_2">对技术保持持续学习的热情，紧跟 AI 技术前沿，积极探索大模型在工程实践中的落地方案</li>
+          <li data-i18n="eval_3">良好的沟通协作能力，有技术团队管理经验，注重代码质量与团队规范建设</li>
+          <li data-i18n="eval_4">活跃于技术社区，乐于分享技术心得，持续输出高质量技术内容</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <span data-i18n="footer">© 2025 beiluoL · 用心写代码，认真生活</span>
+  </div>
+</div>
+
+<script>
+const T = {
+  zh: {
+    brand: 'beiluoL · 简历', print: '🖨️ 打印 / 导出PDF',
+    name: 'beiluoL', title: '全栈开发工程师 · Java + Frontend + AI',
+    tag1: '5+ 年开发经验', tag2: '全栈能力', tag3: 'AI 应用实战', tag4: '开源贡献者',
+    ct_cnblogs: '博客园', ct_wechat: '公众号 · 北落拾光',
+    s_summary: '个人简介',
+    summary: '全栈开发工程师，拥有扎实的 Java 后端开发功底，熟悉 Spring Boot / Spring Cloud 微服务架构与分布式系统设计，同时深入掌握 React、TypeScript、Next.js 等现代前端技术栈。近期专注于 AI 全栈应用方向 — 大模型对话系统、RAG 知识库问答、AI Agent 工作流编排平台，致力于将 AI 能力落地到工程实践中。活跃于技术社区，在博客园、CSDN 持续输出技术文章，并运营个人学习公众号「北落拾光」。',
+    s_skills: '专业技能', sk_be: '后端开发', sk_fe: '前端开发', sk_ai: 'AI 应用', sk_ops: 'DevOps & 工具',
+    s_exp: '工作经历',
+    exp1_role: '全栈开发工程师', exp1_date: '2022.06 — 至今', exp1_company: '某某科技有限公司',
+    exp1_1: '主导公司核心业务系统后端架构设计，基于 Spring Cloud 微服务架构，支撑日均百万级请求处理',
+    exp1_2: '独立搭建前端工程体系，采用 React + TypeScript + Next.js，实现管理后台与 C 端产品的前端开发',
+    exp1_3: '引入 AI 能力，基于 Spring AI + OpenAI API 构建智能客服系统，SSE 流式输出，用户满意度提升 40%',
+    exp1_4: '设计并实现 RAG 知识库问答系统，集成向量数据库（Milvus），支持企业内部知识精准检索',
+    exp1_5: '推动团队代码规范建设，引入 ESLint + Prettier + Husky，代码质量评分提升 30%',
+    exp2_role: 'Java 后端开发工程师', exp2_date: '2020.07 — 2022.05', exp2_company: '某某信息技术有限公司',
+    exp2_1: '负责电商平台后端开发，基于 Spring Boot + MyBatis-Plus，支撑商品管理、订单处理等核心模块',
+    exp2_2: '优化数据库查询性能，通过索引优化 + Redis 缓存策略，核心接口响应时间从 800ms 降至 120ms',
+    exp2_3: '设计并实现基于 RabbitMQ 的异步消息处理系统，解耦核心业务流程，系统吞吐量提升 3 倍',
+    exp2_4: '参与系统从单体架构向微服务架构的迁移，完成 10+ 服务拆分与治理',
+    s_proj: '项目经历',
+    p1_name: 'AI 智能对话平台', p1_badge: '全栈',
+    p1_desc: '基于 Spring AI + React 的全栈对话系统，支持 SSE 流式输出（打字机效果）、多轮对话上下文管理、Token 用量计费统计、对话历史持久化。前后端分离架构，支持 Markdown 渲染与代码高亮。',
+    p2_name: 'RAG 知识库问答系统', p2_badge: 'AI',
+    p2_desc: '企业级私有知识库问答系统，基于 RAG（检索增强生成）架构。支持 PDF/Word/Markdown 文档解析、智能分块（Chunking）、Embedding 向量化存储、语义检索，结合大模型生成精准回答，有效解决 AI 幻觉问题。',
+    p3_name: 'AI Agent 工作流编排平台', p3_badge: 'Agent',
+    p3_desc: '类似 Dify/Coze 的可视化 AI Agent 平台，支持拖拽式工作流编排、多工具调用（Tool Calling）、DAG 拓扑排序执行引擎、条件分支与循环控制，降低 AI 应用搭建门槛。',
+    p4_name: '前端面试要点指南（开源）', p4_badge: '开源',
+    p4_desc: '面向 Java 开发者的前端全栈进阶指南，18 个章节、3000+ 行，覆盖 HTML/CSS、JavaScript、React、Vue、TypeScript、Next.js、微前端、AI 项目实战等，GitHub 开源项目。',
+    s_edu: '教育背景', edu_major: '计算机科学与技术 · 本科', edu_date: '2016.09 — 2020.06', edu_school: '某某大学',
+    edu_1: '主修课程：数据结构、算法设计、操作系统、计算机网络、数据库原理',
+    edu_2: '在校期间参与多个项目开发，获得 ACM 程序设计竞赛省级奖项',
+    s_eval: '自我评价',
+    eval_1: '具备全栈开发能力，能独立完成从需求分析、架构设计到前后端开发、部署上线的全流程',
+    eval_2: '对技术保持持续学习的热情，紧跟 AI 技术前沿，积极探索大模型在工程实践中的落地方案',
+    eval_3: '良好的沟通协作能力，有技术团队管理经验，注重代码质量与团队规范建设',
+    eval_4: '活跃于技术社区，乐于分享技术心得，持续输出高质量技术内容',
+    footer: '© 2025 beiluoL · 用心写代码，认真生活'
+  },
+  en: {
+    brand: 'beiluoL · Resume', print: '🖨️ Print / Export PDF',
+    name: 'beiluoL', title: 'Full Stack Developer · Java + Frontend + AI',
+    tag1: '5+ Years Experience', tag2: 'Full Stack', tag3: 'AI Engineering', tag4: 'Open Source',
+    ct_cnblogs: 'CNBlogs', ct_wechat: 'WeChat: 北落拾光',
+    s_summary: 'Summary',
+    summary: "Full stack developer with solid Java backend expertise — Spring Boot / Spring Cloud microservices and distributed systems — combined with deep proficiency in React, TypeScript, Next.js and modern frontend stacks. Currently focused on AI full-stack applications: LLM chat systems, RAG knowledge base Q&A, and AI Agent workflow orchestration, bringing AI capabilities into engineering practice. Active in tech communities, publishing on CNBlogs and CSDN, running WeChat account '北落拾光'.",
+    s_skills: 'Skills', sk_be: 'Backend', sk_fe: 'Frontend', sk_ai: 'AI Apps', sk_ops: 'DevOps & Tools',
+    s_exp: 'Experience',
+    exp1_role: 'Full Stack Developer', exp1_date: 'Jun 2022 — Present', exp1_company: 'XX Technology Co., Ltd.',
+    exp1_1: 'Led backend architecture design for core business systems using Spring Cloud microservices, handling millions of daily requests',
+    exp1_2: 'Built frontend engineering system with React + TypeScript + Next.js for admin dashboards and consumer-facing products',
+    exp1_3: 'Introduced AI capabilities with Spring AI + OpenAI API, building intelligent customer service with SSE streaming, improving satisfaction by 40%',
+    exp1_4: 'Designed RAG knowledge base Q&A system with Milvus vector database for precise enterprise knowledge retrieval',
+    exp1_5: 'Established team coding standards with ESLint + Prettier + Husky, improving code quality score by 30%',
+    exp2_role: 'Java Backend Developer', exp2_date: 'Jul 2020 — May 2022', exp2_company: 'XX Information Technology Co., Ltd.',
+    exp2_1: 'Developed e-commerce platform backend with Spring Boot + MyBatis-Plus, supporting product management and order processing',
+    exp2_2: 'Optimized database performance through indexing + Redis caching, reducing core API response time from 800ms to 120ms',
+    exp2_3: 'Designed RabbitMQ-based async message processing system, decoupling core business flows and tripling throughput',
+    exp2_4: 'Participated in monolith-to-microservices migration, completing 10+ service splits and governance',
+    s_proj: 'Projects',
+    p1_name: 'AI Chat Platform', p1_badge: 'Full Stack',
+    p1_desc: 'Full-stack chat system with Spring AI + React — SSE streaming (typewriter effect), multi-turn context management, token usage tracking, persistent history. Supports Markdown rendering and code highlighting.',
+    p2_name: 'RAG Knowledge Base Q&A', p2_badge: 'AI',
+    p2_desc: 'Enterprise private knowledge base using RAG architecture. Supports PDF/Word/Markdown parsing, smart chunking, embedding vectorization, semantic search with LLM-powered precise answers.',
+    p3_name: 'AI Agent Workflow Platform', p3_badge: 'Agent',
+    p3_desc: 'Visual AI Agent platform (similar to Dify/Coze) with drag-and-drop workflow orchestration, multi-tool calling, DAG topological execution engine, conditional branching and loop control.',
+    p4_name: 'Frontend Interview Guide (OSS)', p4_badge: 'Open Source',
+    p4_desc: 'Comprehensive frontend guide for Java developers — 18 chapters, 3000+ lines covering JS, React, TS, Next.js, micro-frontend, and AI project practices. Open source on GitHub.',
+    s_edu: 'Education', edu_major: 'Computer Science · Bachelor', edu_date: 'Sep 2016 — Jun 2020', edu_school: 'XX University',
+    edu_1: 'Core courses: Data Structures, Algorithms, Operating Systems, Computer Networks, Database Principles',
+    edu_2: 'Participated in multiple projects, won provincial awards in ACM Programming Competition',
+    s_eval: 'Self Assessment',
+    eval_1: 'Full-stack capability — independently handle end-to-end from requirements analysis, architecture design to development and deployment',
+    eval_2: 'Passionate about continuous learning, actively exploring LLM applications in engineering practice',
+    eval_3: 'Strong communication and collaboration skills with team management experience, emphasizing code quality and standards',
+    eval_4: 'Active in tech communities, dedicated to sharing knowledge and producing high-quality technical content',
+    footer: '© 2025 beiluoL · Code with heart, live with purpose'
+  }
+};
+
+let lang = localStorage.getItem('resume_lang') || 'zh';
+
+function setLang(l) {
+  lang = l;
+  document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
+  document.querySelectorAll('.lang-toggle button').forEach(b =>
+    b.classList.toggle('active', (l==='zh' && b.textContent==='中文') || (l==='en' && b.textContent==='EN'))
+  );
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (T[l][k]) el.textContent = T[l][k];
+  });
+  localStorage.setItem('resume_lang', l);
+}
+
+setLang(lang);
+</script>
+
+</body>
+</html>
