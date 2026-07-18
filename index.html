@@ -427,14 +427,14 @@
 
         <div class="proj-item">
           <div class="proj-name">
-            <span data-i18n="p2_name">RAG 知识库问答系统</span>
+            <span data-i18n="p2_name">RAG 企业级知识库问答系统</span>
             <span class="badge" data-i18n="p2_badge">AI</span>
           </div>
           <div class="proj-desc" data-i18n="p2_desc">
-            企业级私有知识库问答系统，基于 RAG（检索增强生成）架构。支持 PDF/Word/Markdown 文档解析、智能分块（Chunking）、Embedding 向量化存储、语义检索，结合大模型生成精准回答，有效解决 AI 幻觉问题。
+            Spring Boot + Vue 3 全栈 RAG 系统，支持本地离线（Ollama + Qwen2.5）与云端在线（阿里云百炼 DashScope）双模式一键切换。文档解析、向量化存储、带引用来源的精准回答，有效解决 AI 幻觉问题。
           </div>
           <div class="proj-stack">
-            <span>React</span><span>Spring AI</span><span>Milvus</span><span>Embedding</span><span>PDF Parser</span><span>LangChain</span>
+            <span>Spring Boot</span><span>Vue 3</span><span>RAG</span><span>Ollama</span><span>向量数据库</span><span>DashScope</span>
           </div>
         </div>
 
@@ -466,14 +466,14 @@
 
         <div class="proj-item">
           <div class="proj-name">
-            <span data-i18n="p5_name">Learn Hub 编程学习平台</span>
+            <span data-i18n="p5_name">Learnbase · AI 知识库与学习平台</span>
             <span class="badge" data-i18n="p5_badge">学习平台</span>
           </div>
           <div class="proj-desc" data-i18n="p5_desc">
-            一站式编程学习平台，涵盖 Java、Python、前端、AI、大模型等方向，提供系统化学习资源与实战项目，从入门到进阶全覆盖。
+            面向学习场景的知识库 + AI 学习平台：文档浏览/搜索/上传、AI 对话答疑、系统化学习路径（章节 + 闪卡 + 测验 + 写作 + 代码练习），辅以等级/经验/连续打卡等游戏化激励。
           </div>
           <div class="proj-stack">
-            <span>Java</span><span>Python</span><span>React</span><span>AI</span><span>LLM</span>
+            <span>AI</span><span>RAG</span><span>React</span><span>Spring Boot</span><span>Gamification</span>
           </div>
         </div>
       </div>
@@ -538,14 +538,14 @@ const T = {
     s_proj: '项目经历',
     p1_name: 'AI 智能对话平台', p1_badge: '全栈',
     p1_desc: '基于 Spring AI + React 的全栈对话系统，支持 SSE 流式输出（打字机效果）、多轮对话上下文管理、Token 用量计费统计、对话历史持久化。前后端分离架构，支持 Markdown 渲染与代码高亮。',
-    p2_name: 'RAG 知识库问答系统', p2_badge: 'AI',
-    p2_desc: '企业级私有知识库问答系统，基于 RAG（检索增强生成）架构。支持 PDF/Word/Markdown 文档解析、智能分块（Chunking）、Embedding 向量化存储、语义检索，结合大模型生成精准回答，有效解决 AI 幻觉问题。',
+    p2_name: 'RAG 企业级知识库问答系统', p2_badge: 'AI',
+    p2_desc: 'Spring Boot + Vue 3 全栈 RAG 系统，支持本地离线（Ollama + Qwen2.5）与云端在线（阿里云百炼 DashScope）双模式一键切换。文档解析、向量化存储、带引用来源的精准回答，有效解决 AI 幻觉问题。',
     p3_name: 'AI Agent 工作流编排平台', p3_badge: 'Agent',
     p3_desc: '类似 Dify/Coze 的可视化 AI Agent 平台，支持拖拽式工作流编排、多工具调用（Tool Calling）、DAG 拓扑排序执行引擎、条件分支与循环控制，降低 AI 应用搭建门槛。',
     p4_name: '前端面试要点指南（开源）', p4_badge: '开源',
     p4_desc: '面向 Java 开发者的前端全栈进阶指南，18 个章节、3000+ 行，覆盖 HTML/CSS、JavaScript、React、Vue、TypeScript、Next.js、微前端、AI 项目实战等，GitHub 开源项目。',
-    p5_name: 'Learn Hub 编程学习平台', p5_badge: '学习平台',
-    p5_desc: '一站式编程学习平台，涵盖 Java、Python、前端、AI、大模型等方向，提供系统化学习资源与实战项目，从入门到进阶全覆盖。',
+    p5_name: 'Learnbase · AI 知识库与学习平台', p5_badge: '学习平台',
+    p5_desc: '面向学习场景的知识库 + AI 学习平台：文档浏览/搜索/上传、AI 对话答疑、系统化学习路径（章节 + 闪卡 + 测验 + 写作 + 代码练习），辅以等级/经验/连续打卡等游戏化激励。',
     s_edu: '教育背景', edu_major: '计算机科学与技术 · 本科', edu_date: '2016.09 — 2020.06', edu_school: '某某大学',
     edu_1: '主修课程：数据结构、算法设计、操作系统、计算机网络、数据库原理',
     edu_2: '在校期间参与多个项目开发，获得 ACM 程序设计竞赛省级奖项',
@@ -579,14 +579,14 @@ const T = {
     s_proj: 'Projects',
     p1_name: 'AI Chat Platform', p1_badge: 'Full Stack',
     p1_desc: 'Full-stack chat system with Spring AI + React — SSE streaming (typewriter effect), multi-turn context management, token usage tracking, persistent history. Supports Markdown rendering and code highlighting.',
-    p2_name: 'RAG Knowledge Base Q&A', p2_badge: 'AI',
-    p2_desc: 'Enterprise private knowledge base using RAG architecture. Supports PDF/Word/Markdown parsing, smart chunking, embedding vectorization, semantic search with LLM-powered precise answers.',
+    p2_name: 'RAG Enterprise Knowledge Base Q&A', p2_badge: 'AI',
+    p2_desc: 'Spring Boot + Vue 3 full-stack RAG system with dual-mode: local offline (Ollama + Qwen2.5) and cloud online (Alibaba DashScope). Document parsing, vectorized storage, and precise answers with citations.',
     p3_name: 'AI Agent Workflow Platform', p3_badge: 'Agent',
     p3_desc: 'Visual AI Agent platform (similar to Dify/Coze) with drag-and-drop workflow orchestration, multi-tool calling, DAG topological execution engine, conditional branching and loop control.',
     p4_name: 'Frontend Interview Guide (OSS)', p4_badge: 'Open Source',
     p4_desc: 'Comprehensive frontend guide for Java developers — 18 chapters, 3000+ lines covering JS, React, TS, Next.js, micro-frontend, and AI project practices. Open source on GitHub.',
-    p5_name: 'Learn Hub - Programming Learning Platform', p5_badge: 'Learning Platform',
-    p5_desc: 'All-in-one programming learning platform covering Java, Python, Frontend, AI, and LLMs — systematic resources and hands-on projects, from beginner to advanced.',
+    p5_name: 'Learnbase · AI Knowledge Base & Learning Platform', p5_badge: 'Learning Platform',
+    p5_desc: 'Learning-oriented knowledge base + AI platform: document browsing/search/upload, AI chat Q&A, systematic learning paths (chapters + flashcards + quizzes + writing + coding), with gamification (levels, XP, streaks).',
     s_edu: 'Education', edu_major: 'Computer Science · Bachelor', edu_date: 'Sep 2016 — Jun 2020', edu_school: 'XX University',
     edu_1: 'Core courses: Data Structures, Algorithms, Operating Systems, Computer Networks, Database Principles',
     edu_2: 'Participated in multiple projects, won provincial awards in ACM Programming Competition',
